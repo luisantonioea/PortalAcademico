@@ -23,9 +23,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cursos" asp-action="Index">Catálogo de Cursos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+    
+                        @if (!string.IsNullOrEmpty(Context.Session.GetString("UltimoCursoNombre")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-primary font-weight-bold" asp-controller="Cursos" 
+                                    asp-action="Detalle" asp-route-id="@Context.Session.GetString("UltimoCursoId")">
+                                        Volver al curso: @Context.Session.GetString("UltimoCursoNombre")
+                                </a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
