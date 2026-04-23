@@ -1,0 +1,60 @@
+@model PortalAcademico.ViewModels.CatalogoViewModel
+
+@{
+    ViewData["Title"] = "Catálogo de Cursos";
+}
+
+<h2>Catálogo de Cursos</h2>
+
+<form asp-action="Index" method="get" class="mb-4 p-3 border rounded bg-light">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label>Nombre del Curso</label>
+            <input asp-for="BuscarNombre" class="form-control" placeholder="Ej. Arquitectura" />
+        </div>
+        <div class="col-md-2">
+            <label>Créditos Mínimos</label>
+            <input asp-for="MinCreditos" class="form-control" type="number" />
+            <span asp-validation-for="MinCreditos" class="text-danger"></span>
+        </div>
+        <div class="col-md-2">
+            <label>Créditos Máximos</label>
+            <input asp-for="MaxCreditos" class="form-control" type="number" />
+            <span asp-validation-for="MaxCreditos" class="text-danger"></span>
+        </div>
+        <div class="col-md-2">
+            <label>Desde (Hora)</label>
+            <input asp-for="HorarioInicio" class="form-control" type="time" />
+        </div>
+        <div class="col-md-2">
+            <label>Hasta (Hora)</label>
+            <input asp-for="HorarioFin" class="form-control" type="time" />
+            <span asp-validation-for="HorarioFin" class="text-danger"></span>
+        </div>
+        <div class="col-md-1 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    @foreach (var curso in Model.Cursos)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@curso.Nombre</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Código: @curso.Codigo</h6>
+                    <p class="card-text">
+                        <strong>Créditos:</strong> @curso.Creditos <br />
+                        <strong>Horario:</strong> @curso.HorarioInicio.ToString(@"hh\:mm") - @curso.HorarioFin.ToString(@"hh\:mm") <br />
+                        <strong>Cupos Max:</strong> @curso.CupoMaximo
+                    </p>
+                    <a asp-action="Detalle" asp-route-id="@curso.Id" class="btn btn-info text-white">Ver Detalle</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
