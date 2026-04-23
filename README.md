@@ -10,7 +10,7 @@ Sistema de gestión de cursos y matrículas desarrollado en ASP.NET Core MVC (.N
 4. Ejecutar las migraciones en la terminal: 
    ```bash
    dotnet ef database update
-5. Ejectuar el proyecto:
+5. Ejecutar el proyecto:
    dotnet run
 
 ## Variables de entorno necesarias (Producción)
