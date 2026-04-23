@@ -15,8 +15,24 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+// Antes de builder.Build()
+var redisConnectionString = builder.Configuration.GetConnectionString("RedisConnection");
 
-builder.Services.AddDistributedMemoryCache();
+if (!string.IsNullOrEmpty(redisConnectionString))
+{
+    // Configuración para usar Redis real (en Producción)
+    builder.Services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = redisConnectionString;
+        options.InstanceName = "PortalAcademico_";
+    });
+}
+else
+{
+    // Usar caché en memoria (para desarrollo local)
+    builder.Services.AddDistributedMemoryCache();
+}
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
