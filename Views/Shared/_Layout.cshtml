@@ -23,13 +23,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cursos" asp-action="Index">Catálogo de Cursos</a>
                         </li>
-    
+
+                        @if (User.IsInRole("Coordinador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-danger fw-bold" asp-area="" asp-controller="Coordinador" asp-action="Index">Panel Coordinador</a>
+                            </li>
+                        }
+
                         @if (!string.IsNullOrEmpty(Context.Session.GetString("UltimoCursoNombre")))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-primary font-weight-bold" asp-controller="Cursos" 
                                     asp-action="Detalle" asp-route-id="@Context.Session.GetString("UltimoCursoId")">
-                                        Volver al curso: @Context.Session.GetString("UltimoCursoNombre")
+                                    Volver al curso: @Context.Session.GetString("UltimoCursoNombre")
                                 </a>
                             </li>
                         }
