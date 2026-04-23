@@ -17,11 +17,11 @@ namespace PortalAcademico.Models
 
         [Required]
         public int CursoId { get; set; }
-        public Curso Curso { get; set; }
+        public Curso Curso { get; set; } = default!;
 
         [Required]
-        public string UsuarioId { get; set; }
-        public IdentityUser Usuario { get; set; }
+        public string UsuarioId { get; set; } = string.Empty;
+        public IdentityUser Usuario { get; set; } = default!;
 
         public DateTime FechaRegistro { get; set; } = DateTime.UtcNow;
 

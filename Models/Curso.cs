@@ -9,10 +9,10 @@ namespace PortalAcademico.Models
         public int Id { get; set; }
 
         [Required]
-        public string Codigo { get; set; }
+        public string Codigo { get; set; } = string.Empty;
 
         [Required]
-        public string Nombre { get; set; }
+        public string Nombre { get; set; } = string.Empty;
 
         [Range(1, int.MaxValue, ErrorMessage = "Los créditos deben ser mayores a 0")]
         public int Creditos { get; set; }
@@ -28,7 +28,7 @@ namespace PortalAcademico.Models
 
         public bool Activo { get; set; } = true;
 
-        public ICollection<Matricula> Matriculas { get; set; }
+        public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
