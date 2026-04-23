@@ -15,4 +15,4 @@ Sistema de gestión de cursos y matrículas desarrollado en ASP.NET Core MVC (.N
 * `Redis__ConnectionString`: (URL de tu servidor Redis en la nube)
 
 ## URL del despliegue
-[Inserta aquí el enlace de tu Web Service en Render]
+https://portalacademico-5f0k.onrender.com
