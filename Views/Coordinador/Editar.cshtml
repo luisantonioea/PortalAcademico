@@ -1,0 +1,57 @@
+@model PortalAcademico.Models.Curso
+@{ ViewData["Title"] = "Editar Curso"; }
+
+<h2 class="mt-4">Editar Curso</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Editar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="mb-3">
+                <label asp-for="Codigo" class="form-label">Código</label>
+                <input asp-for="Codigo" class="form-control" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label">Nombre del Curso</label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label asp-for="Creditos" class="form-label">Créditos</label>
+                    <input asp-for="Creditos" class="form-control" />
+                    <span asp-validation-for="Creditos" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="CupoMaximo" class="form-label">Cupo Máximo</label>
+                    <input asp-for="CupoMaximo" class="form-control" />
+                    <span asp-validation-for="CupoMaximo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label asp-for="HorarioInicio" class="form-label">Hora Inicio</label>
+                    <input asp-for="HorarioInicio" type="time" class="form-control" />
+                    <span asp-validation-for="HorarioInicio" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="HorarioFin" class="form-label">Hora Fin</label>
+                    <input asp-for="HorarioFin" type="time" class="form-control" />
+                    <span asp-validation-for="HorarioFin" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Activo" /> Curso Activo
+                </label>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Actualizar Curso" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</div>

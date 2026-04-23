@@ -1,0 +1,48 @@
+@model IEnumerable<PortalAcademico.Models.Matricula>
+@{ ViewData["Title"] = "Gestión de Matrículas"; }
+
+<h2 class="mt-4">Matrículas: @ViewBag.CursoNombre</h2>
+<a asp-action="Index" class="btn btn-secondary mb-3">Volver a Cursos</a>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+
+<table class="table table-bordered mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Fecha Registro</th>
+            <th>Estudiante (Email)</th>
+            <th>Estado Actual</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@item.Usuario.Email</td>
+                <td>
+                    <span class="badge @(item.Estado == PortalAcademico.Models.EstadoMatricula.Confirmada ? "bg-success" : 
+                                         item.Estado == PortalAcademico.Models.EstadoMatricula.Pendiente ? "bg-warning text-dark" : "bg-danger")">
+                        @item.Estado
+                    </span>
+                </td>
+                <td>
+                    <form asp-action="CambiarEstadoMatricula" method="post" class="d-inline">
+                        <input type="hidden" name="matriculaId" value="@item.Id" />
+                        <button type="submit" name="estado" value="Confirmada" class="btn btn-sm btn-success" @(item.Estado == PortalAcademico.Models.EstadoMatricula.Confirmada ? "disabled" : "")>Confirmar</button>
+                        <button type="submit" name="estado" value="Cancelada" class="btn btn-sm btn-danger" @(item.Estado == PortalAcademico.Models.EstadoMatricula.Cancelada ? "disabled" : "")>Cancelar</button>
+                        <button type="submit" name="estado" value="Pendiente" class="btn btn-sm btn-warning" @(item.Estado == PortalAcademico.Models.EstadoMatricula.Pendiente ? "disabled" : "")>Pendiente</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        @if(!Model.Any())
+        {
+            <tr><td colspan="4" class="text-center">No hay alumnos matriculados en este curso.</td></tr>
+        }
+    </tbody>
+</table>
