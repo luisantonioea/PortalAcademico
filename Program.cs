@@ -15,12 +15,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-// Antes de builder.Build()
-var redisConnectionString = builder.Configuration.GetConnectionString("RedisConnection");
+
+var redisConnectionString = Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING");
 
 if (!string.IsNullOrEmpty(redisConnectionString))
 {
-    // Configuración para usar Redis real (en Producción)
     builder.Services.AddStackExchangeRedisCache(options =>
     {
         options.Configuration = redisConnectionString;
@@ -29,7 +28,7 @@ if (!string.IsNullOrEmpty(redisConnectionString))
 }
 else
 {
-    // Usar caché en memoria (para desarrollo local)
+    // Solo para desarrollo local, si no encuentra la variable
     builder.Services.AddDistributedMemoryCache();
 }
 
