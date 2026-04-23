@@ -14,10 +14,10 @@ Sistema de gestión de cursos y matrículas desarrollado en ASP.NET Core MVC (.N
    dotnet run
 
 ## Variables de entorno necesarias (Producción)
-ASPNETCORE_ENVIRONMENT: Production
-ASPNETCORE_URLS: http://0.0.0.0:${PORT}
-ConnectionStrings__DefaultConnection: (Cadena de conexión a base de datos)
-REDIS_CONNECTION_STRING: (Credenciales y URL de servidor Redis en la nube))
+- ASPNETCORE_ENVIRONMENT: Production
+- ASPNETCORE_URLS: http://0.0.0.0:${PORT}
+- ConnectionStrings__DefaultConnection: (Cadena de conexión a base de datos)
+- REDIS_CONNECTION_STRING: (Credenciales y URL de servidor Redis en la nube))
 
 ## URL del despliegue
 El proyecto se encuentra desplegado y funcionando en Render:
