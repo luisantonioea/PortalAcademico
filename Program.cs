@@ -39,6 +39,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// ... (tus usings y builder.Services se quedan igual)
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,23 +51,19 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
-app.UseSession(); // <-- ¡Muy importante que esté en este orden!
-app.UseAuthorization();
-
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+// 1. Los archivos estáticos van PRIMERO para no sobrecargar el router
 app.UseStaticFiles(); 
 
+app.UseRouting();
+app.UseSession(); 
+app.UseAuthentication(); // Asegúrate de tener esto si usas Identity
+app.UseAuthorization();
+
+// 2. Ruta única (la tenías duplicada)
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -76,7 +74,6 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<ApplicationDbContext>();
     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    
     await DbInitializer.InitializeAsync(context, userManager, roleManager);
 }
 
